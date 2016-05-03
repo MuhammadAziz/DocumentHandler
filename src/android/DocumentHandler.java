@@ -136,7 +136,13 @@ public class DocumentHandler extends CordovaPlugin {
 
 		@Override
 		protected File doInBackground(Void... arg0) {
-			return downloadFile(url, callbackContext);
+			if(!url.startsWith("file://")){
+                return downloadFile(url, callbackContext);
+            }
+            else{
+                File file = new File(url.replaceFirst("file://", ""));
+                return file;
+            }
 		}
 
 		@Override
